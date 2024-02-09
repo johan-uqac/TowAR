@@ -1,14 +1,15 @@
 ﻿using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ScoreText : MonoBehaviour
 {
     private int score;
-    private TextMeshProUGUI text;
+    public TextMeshProUGUI _scoreText;
 
     private void Start()
     {
-        text = GetComponent<TMPro.TextMeshProUGUI>();
+        _scoreText = GetComponent<TextMeshProUGUI>();
         GameManager.OnCubeSpawned += GameManager_OnCubeSpawned;
     }
 
@@ -17,9 +18,17 @@ public class ScoreText : MonoBehaviour
         GameManager.OnCubeSpawned -= GameManager_OnCubeSpawned;
     }
 
+    // private void Update()
+    // {
+    //     score++;
+    //     _scoreText.text = "Score: " + score.ToString();
+    //     _scoreText.SetText("Score: " + score.ToString());
+    // }
+
     private void GameManager_OnCubeSpawned()
     {
         score++;
-        text.text = "Score: " + score;
+        _scoreText.text = "Score: " + score.ToString();
+        _scoreText.SetText("Score: " + score.ToString());
     }
 }
