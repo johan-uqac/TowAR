@@ -9,11 +9,40 @@ public class CubeSpawner : MonoBehaviour
     private MovingCube cubePrefab;
     [SerializeField]
     private MoveDirection moveDirection;
+
+    public float cubeSpeed = 0f;
     
     private void Start() {
         if(moveDirection == MoveDirection.X)
             SpawnCube();
     }
+
+    void Update()
+{
+    Vector3 acceleration = Input.acceleration;
+    Debug.Log("Acceleration X: " + acceleration.x);
+    Debug.Log("Acceleration Y: " + acceleration.y);
+    
+    float speedMultiplier = 2f;
+    float speedX = acceleration.x * speedMultiplier;
+    float speedY = acceleration.x * speedMultiplier;
+
+    
+
+    // Créer un vecteur de déplacement en fonction de l'accélération
+    Vector3 movementVector = new Vector3(speedX, 0, speedY);
+
+    // Modifier la vitesse du cube en fonction du mouvement du téléphone
+    cubeSpeed = movementVector.magnitude; // Utilisez la magnitude du vecteur comme vitesse
+    
+    if (cubeSpeed > 0f && MovingCube.CurrentCube != null)
+        {
+            MovingCube.CurrentCube.SetMoveSpeed(cubeSpeed);
+        }
+
+        Debug.Log("Cube Speed: " + cubeSpeed);
+}
+
 
     public void SpawnCube()
     {

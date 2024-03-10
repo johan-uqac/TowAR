@@ -9,10 +9,14 @@ public class MovingCube : MonoBehaviour
     public static MovingCube CurrentCube { get; private set; }
     public static MovingCube LastCube { get; private set; }
     public MoveDirection MoveDirection { get; set; }
-
     [SerializeField]
-    private float moveSpeed = 1f;
+    private float moveSpeed = 0.25f;
 
+public void SetMoveSpeed(float speed)
+{
+    moveSpeed = speed;
+
+}
     private void OnEnable()
     {
         if (LastCube == null)
