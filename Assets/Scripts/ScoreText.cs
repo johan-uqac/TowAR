@@ -9,8 +9,8 @@ public class ScoreText : MonoBehaviour
 
     private void Start()
     {
-        _scoreText = GetComponent<TextMeshProUGUI>();
-        GameManager.OnCubeSpawned += GameManager_OnCubeSpawned;
+        // _scoreText = GetComponent<TextMeshProUGUI>();
+        // GameManager.OnCubeSpawned += GameManager_OnCubeSpawned;
     }
 
     private void OnDestroy()

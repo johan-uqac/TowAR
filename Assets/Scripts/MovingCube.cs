@@ -3,12 +3,40 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.XR.ARFoundation;
+using UnityEngine.XR.ARSubsystems;
 
 public class MovingCube : MonoBehaviour
 {
     public static MovingCube CurrentCube { get; private set; }
     public static MovingCube LastCube { get; private set; }
     public MoveDirection MoveDirection { get; set; }
+
+    private ARRaycastManager raycastManager;
+
+    private void Start()
+    {
+        raycastManager = GetComponent<ARRaycastManager>();
+
+        // Create a list to hold the hit results
+        List<ARRaycastHit> hitResults = new List<ARRaycastHit>();
+
+        // Cast a ray from the center of the screen
+        Vector2 centerOfScreen = new Vector2(Screen.width / 2, Screen.height / 2);
+
+        // Check if the ray intersects with any plane detected by AR
+        if (raycastManager.Raycast(centerOfScreen, hitResults, TrackableType.Planes))
+        {
+            // If there are any hit results, take the first one
+            if (hitResults.Count > 0)
+            {
+                ARRaycastHit hitResult = hitResults[0];
+
+                // Position the cube at the hit position
+                transform.position = hitResult.pose.position;
+            }
+        }
+    }
 
     [SerializeField]
     private float moveSpeed = 1f;
@@ -108,43 +136,31 @@ public class MovingCube : MonoBehaviour
 
         cube.AddComponent<Rigidbody>();
         cube.GetComponent<Renderer>().material.color = GetComponent<Renderer>().material.color;
-
-        // Destroy(cube.gameObject, 1f);
     }
 
     private void Update()
     {
-        // if (MoveDirection == MoveDirection.Z)
-        //     transform.position += transform.forward * Time.deltaTime * moveSpeed;
-        // else
-        //     transform.position += transform.right * Time.deltaTime * moveSpeed;
-        // Variable pour suivre la position actuelle de l'objet
         Vector3 currentPosition = transform.position;
 
-        // Déplacer l'objet selon la direction actuelle
         if (MoveDirection == MoveDirection.Z)
         {
-            currentPosition += transform.forward * Time.deltaTime * moveSpeed;
+            currentPosition += moveSpeed * Time.deltaTime * transform.forward;
         }
         else
         {
-            currentPosition += transform.right * Time.deltaTime * moveSpeed;
+            currentPosition += moveSpeed * Time.deltaTime * transform.right;
         }
 
         if (currentPosition.x <= -2 || currentPosition.x >= 2)
         {
-            // Inverser le vecteur de déplacement sur l'axe x
             transform.forward = -transform.forward;
         }
 
         if (currentPosition.z <= -2 || currentPosition.z >= 2)
         {
-            // Inverser le vecteur de déplacement sur l'axe z
             transform.right = -transform.right;
         }
 
-
-        // Affecter la nouvelle position à l'objet
         transform.position = currentPosition;
 
     }
