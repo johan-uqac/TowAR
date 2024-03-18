@@ -39,8 +39,13 @@ public class MovingCube : MonoBehaviour
     }
 
     [SerializeField]
-    private float moveSpeed = 1f;
+    private float moveSpeed = 0.25f;
 
+public void SetMoveSpeed(float speed)
+{
+    moveSpeed = speed;
+
+}
     private void OnEnable()
     {
         if (LastCube == null)

@@ -24,7 +24,7 @@ public class CubeSpawner : MonoBehaviour
     Debug.Log("Acceleration Y: " + acceleration.y);
     
     float speedMultiplier = 2f;
-    float speedX = acceleration.x * speedMultiplier;
+    float speedX = acceleration.y * speedMultiplier;
     float speedY = acceleration.y * speedMultiplier;
 
     
