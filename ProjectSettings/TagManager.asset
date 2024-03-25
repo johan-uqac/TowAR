@@ -4,7 +4,16 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Spawnable
+  - ar_object
+  - fireworks_parent
+  - loading_circle
+  - block
+  - block_0
+  - text_score
+  - game_obj_game_start
+  - game_pbj_game_over
+  - game_obj_game_over
+  - shadow_plane
   layers:
   - Default
   - TransparentFX
@@ -15,8 +24,8 @@ TagManager:
   - 
   - 
   - PostProcessing
-  - 
-  - 
+  - Screen Space
+  - animal
   - 
   - 
   - 
